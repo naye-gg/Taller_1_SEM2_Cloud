@@ -4,8 +4,10 @@ const db = require('./database'); // Importamos la conexión SQLite
 const path = require('path');
 const app = express();
 const PORT = 3000;
+const cors = require('cors');
 
 app.use(bodyParser.json());
+app.use(cors());
 
 // Ruta principal
 app.get('/', (req, res) => {
@@ -45,7 +47,19 @@ app.get('/videogames/:id', (req, res) => {
 // Insertar un nuevo videojuego
 app.post('/videogames', (req, res) => {
   console.log('Acceso a POST /videogames');
+  
+  // Mostrar los datos que se están recibiendo del cliente
+  console.log('Datos recibidos del cliente:', req.body);
+  
   const { name, description, photo, video } = req.body;
+
+  // Validar los datos antes de intentar insertarlos en la base de datos
+  if (!name || !description || !photo || !video) {
+    console.error('Error: Datos incompletos');
+    return res.status(400).json({ error: 'Todos los campos son obligatorios' });
+  }
+
+  // Realizar la inserción en la base de datos
   db.run(
     'INSERT INTO videogames (name, description, photo, video) VALUES (?, ?, ?, ?)',
     [name, description, photo, video],
@@ -54,11 +68,13 @@ app.post('/videogames', (req, res) => {
         console.error('Error al insertar videojuego:', err.message);
         res.status(500).json({ error: 'Error al insertar videojuego' });
       } else {
+        console.log('Videojuego insertado correctamente con ID:', this.lastID);
         res.status(201).json({ id: this.lastID, ...req.body });
       }
     }
   );
 });
+
 
 // Actualizar un videojuego existente
 app.put('/videogames/:id', (req, res) => {

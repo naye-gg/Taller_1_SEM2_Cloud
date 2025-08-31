@@ -5,7 +5,7 @@ const path = require('path');
 const cors = require('cors');
 
 const app = express();
-const PORT = 3000;
+const PORT = process.env.PORT || 8000;
 
 app.use(bodyParser.json());
 app.use(cors());
@@ -114,6 +114,6 @@ app.delete('/videogames/:id', (req, res) => {
 });
 
 // Inicio del servidor
-app.listen(PORT, () => {
-  console.log(`Servidor corriendo en http://localhost:${PORT}`);
+app.listen(PORT, '0.0.0.0', () => {
+  console.log(`Servidor corriendo en http://0.0.0.0:${PORT}`);
 });

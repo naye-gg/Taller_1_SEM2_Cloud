@@ -16,100 +16,100 @@ app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname, 'index.html'));
 });
 
-// Listar todos los videojuegos
-app.get('/videogames', (req, res) => {
-  console.log('Acceso a GET /videogames');
+// Listar todas las series
+app.get('/series', (req, res) => {
+  console.log('Acceso a GET /series');
   try {
-    const rows = db.prepare('SELECT * FROM videogames').all();
+    const rows = db.prepare('SELECT * FROM series').all();
     res.json(rows);
   } catch (err) {
-    console.error('Error al obtener videojuegos:', err.message);
-    res.status(500).json({ error: 'Error al obtener videojuegos' });
+    console.error('Error al obtener series:', err.message);
+    res.status(500).json({ error: 'Error al obtener series' });
   }
 });
 
-// Obtener un videojuego por id
-app.get('/videogames/:id', (req, res) => {
+// Obtener una serie por id
+app.get('/series/:id', (req, res) => {
   const id = parseInt(req.params.id);
-  console.log(`Acceso a GET /videogames/${id}`);
+  console.log(`Acceso a GET /series/${id}`);
   try {
-    const row = db.prepare('SELECT * FROM videogames WHERE id = ?').get(id);
+    const row = db.prepare('SELECT * FROM series WHERE id = ?').get(id);
     if (row) {
       res.json(row);
     } else {
-      res.status(404).json({ message: 'Videogame not found' });
+      res.status(404).json({ message: 'Serie not found' });
     }
   } catch (err) {
-    console.error('Error al obtener videojuego:', err.message);
-    res.status(500).json({ error: 'Error al obtener videojuego' });
+    console.error('Error al obtener serie:', err.message);
+    res.status(500).json({ error: 'Error al obtener serie' });
   }
 });
 
-// Insertar un nuevo videojuego
-app.post('/videogames', (req, res) => {
-  console.log('Acceso a POST /videogames');
+// Insertar una nueva serie
+app.post('/series', (req, res) => {
+  console.log('Acceso a POST /series');
   console.log('Datos recibidos del cliente:', req.body);
 
-  const { name, description, photo, video } = req.body;
+  const { name, description, photo, trailer, genre, rating } = req.body;
 
-  if (!name || !description || !photo || !video) {
+  if (!name || !description || !photo || !trailer) {
     console.error('Error: Datos incompletos');
-    return res.status(400).json({ error: 'Todos los campos son obligatorios' });
+    return res.status(400).json({ error: 'Los campos name, description, photo y trailer son obligatorios' });
   }
 
   try {
     const stmt = db.prepare(
-      'INSERT INTO videogames (name, description, photo, video) VALUES (?, ?, ?, ?)'
+      'INSERT INTO series (name, description, photo, trailer, genre, rating) VALUES (?, ?, ?, ?, ?, ?)'
     );
-    const info = stmt.run(name, description, photo, video);
-    console.log('Videojuego insertado correctamente con ID:', info.lastInsertRowid);
+    const info = stmt.run(name, description, photo, trailer, genre || null, rating || null);
+    console.log('Serie insertada correctamente con ID:', info.lastInsertRowid);
     res.status(201).json({ id: info.lastInsertRowid, ...req.body });
   } catch (err) {
-    console.error('Error al insertar videojuego:', err.message);
-    res.status(500).json({ error: 'Error al insertar videojuego' });
+    console.error('Error al insertar serie:', err.message);
+    res.status(500).json({ error: 'Error al insertar serie' });
   }
 });
 
-// Actualizar un videojuego existente
-app.put('/videogames/:id', (req, res) => {
+// Actualizar una serie existente
+app.put('/series/:id', (req, res) => {
   const id = parseInt(req.params.id);
-  console.log(`Acceso a PUT /videogames/${id}`);
-  const { name, description, photo, video } = req.body;
+  console.log(`Acceso a PUT /series/${id}`);
+  const { name, description, photo, trailer, genre, rating } = req.body;
 
   try {
     const stmt = db.prepare(
-      'UPDATE videogames SET name = ?, description = ?, photo = ?, video = ? WHERE id = ?'
+      'UPDATE series SET name = ?, description = ?, photo = ?, trailer = ?, genre = ?, rating = ? WHERE id = ?'
     );
-    const info = stmt.run(name, description, photo, video, id);
+    const info = stmt.run(name, description, photo, trailer, genre || null, rating || null, id);
 
     if (info.changes === 0) {
-      res.status(404).json({ message: 'Videogame not found' });
+      res.status(404).json({ message: 'Serie not found' });
     } else {
-      res.json({ id, name, description, photo, video });
+      res.json({ id, name, description, photo, trailer, genre, rating });
     }
   } catch (err) {
-    console.error('Error al actualizar videojuego:', err.message);
-    res.status(500).json({ error: 'Error al actualizar videojuego' });
+    console.error('Error al actualizar serie:', err.message);
+    res.status(500).json({ error: 'Error al actualizar serie' });
   }
 });
 
-// Eliminar un videojuego
-app.delete('/videogames/:id', (req, res) => {
+// Eliminar una serie
+app.delete('/series/:id', (req, res) => {
   const id = parseInt(req.params.id);
-  console.log(`Acceso a DELETE /videogames/${id}`);
+  console.log(`Acceso a DELETE /series/${id}`);
 
   try {
-    const stmt = db.prepare('DELETE FROM videogames WHERE id = ?');
+    const stmt = db.prepare('DELETE FROM series WHERE id = ?');
     const info = stmt.run(id);
 
     if (info.changes === 0) {
-      res.status(404).json({ message: 'Videogame not found' });
+      res.status(404).json({ message: 'Serie not found' });
     } else {
       res.status(204).send();
     }
   } catch (err) {
-    console.error('Error al eliminar videojuego:', err.message);
-    res.status(500).json({ error: 'Error al eliminar videojuego' });
+    console.error('Error al eliminar serie:', err.message);
+    res.status(500).json({ error: 'Error al eliminar serie' });
   }
 });
 

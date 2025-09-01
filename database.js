@@ -1,16 +1,18 @@
 const Database = require('better-sqlite3');
 
 // Abrimos o creamos la base de datos
-const db = new Database('videogames.db');
+const db = new Database('series.db');
 
 // Creamos la tabla si no existe
 db.prepare(`
-  CREATE TABLE IF NOT EXISTS videogames (
+  CREATE TABLE IF NOT EXISTS series (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     name TEXT,
     description TEXT,
     photo TEXT,
-    video TEXT
+    trailer TEXT,
+    genre TEXT,
+    rating REAL
   )
 `).run();
 

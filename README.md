@@ -1,108 +1,204 @@
-# API REST de Videojuegos - Guía de Postman
+# 📺 API REST de Series Favoritas
 
-## Archivos creados para Postman:
+Una API REST completa para gestionar tu colección de series favoritas, construida con Node.js, Express y SQLite.
 
-1. **`Videojuegos_API.postman_collection.json`** - Colección completa con todas las llamadas a la API
-2. **`Videojuegos_Environment.postman_environment.json`** - Ambiente con variables configuradas
+## 🚀 Características
 
-## Cómo importar en Postman:
+- ✅ CRUD completo (Crear, Leer, Actualizar, Eliminar)
+- ✅ Base de datos SQLite integrada
+- ✅ Interfaz web responsive con Bootstrap
+- ✅ Validación de datos
+- ✅ Manejo de errores
+- ✅ CORS habilitado
+- ✅ Campos adicionales: género y calificación
 
-### 1. Importar la Colección:
-- Abre Postman
-- Click en "Import" 
-- Selecciona el archivo `Videojuegos_API.postman_collection.json`
-- Click "Import"
+## 🛠️ Tecnologías Utilizadas
 
-### 2. Importar el Environment:
-- En Postman, ve a "Environments"
-- Click en "Import"
-- Selecciona el archivo `Videojuegos_Environment.postman_environment.json`
-- Click "Import"
-- Selecciona el environment "Videojuegos Environment" en el dropdown
+- **Backend**: Node.js + Express
+- **Base de datos**: SQLite (better-sqlite3)
+- **Frontend**: HTML5 + Bootstrap 4 + jQuery
+- **Otras**: CORS, Body-parser
 
-## Endpoints incluidos en la colección:
+## 📋 Requisitos Previos
 
-### 🔍 **GET /videogames**
-- **Descripción**: Obtiene todos los videojuegos
-- **URL**: `{{base_url}}/videogames`
-- **Respuesta**: Array de videojuegos
+- Node.js (versión 14 o superior)
+- npm
 
-### 🔍 **GET /videogames/:id**
-- **Descripción**: Obtiene un videojuego específico
-- **URL**: `{{base_url}}/videogames/1`
-- **Parámetro**: Cambiar el `1` por el ID deseado
+## ⚡ Instalación y Ejecución
 
-### ➕ **POST /videogames**
-- **Descripción**: Crea un nuevo videojuego
-- **URL**: `{{base_url}}/videogames`
-- **Body (JSON)**:
+1. **Clonar el repositorio:**
+```bash
+git clone https://github.com/naye-gg/Taller_1_SEM2_Cloud.git
+cd Taller_1_SEM2_Cloud
+```
+
+2. **Instalar dependencias:**
+```bash
+npm install
+```
+
+3. **Ejecutar la aplicación:**
+```bash
+npm run dev
+```
+
+4. **Acceder a la aplicación:**
+   - Interfaz web: `http://localhost:8000`
+   - API: `http://localhost:8000/series`
+
+## 📊 Estructura de Datos
+
+Cada serie tiene los siguientes campos:
+
 ```json
 {
-    "name": "The Legend of Zelda: Breath of the Wild",
-    "description": "Un juego de aventura y exploración en mundo abierto donde Link debe salvar Hyrule.",
-    "photo": "https://example.com/zelda-botw.jpg",
-    "video": "https://example.com/zelda-botw-trailer.mp4"
+  "id": 1,
+  "name": "Breaking Bad",
+  "description": "Un profesor de química se convierte en fabricante de metanfetaminas",
+  "photo": "https://example.com/breaking-bad.jpg",
+  "trailer": "https://example.com/breaking-bad-trailer.mp4",
+  "genre": "Drama/Thriller",
+  "rating": 9.5
 }
 ```
 
-### ✏️ **PUT /videogames/:id**
-- **Descripción**: Actualiza un videojuego existente
-- **URL**: `{{base_url}}/videogames/1`
-- **Body (JSON)**: Todos los campos del videojuego
+## 🔗 Endpoints de la API
 
-### ❌ **DELETE /videogames/:id**
-- **Descripción**: Elimina un videojuego
-- **URL**: `{{base_url}}/videogames/1`
-- **Parámetro**: Cambiar el `1` por el ID a eliminar
-
-## Ejemplos de uso con curl (alternativa):
-
-```bash
-# 1. Obtener todos los videojuegos
-curl -X GET http://localhost:3000/videogames
-
-# 2. Obtener videojuego por ID
-curl -X GET http://localhost:3000/videogames/1
-
-# 3. Crear nuevo videojuego
-curl -X POST http://localhost:3000/videogames \
-  -H "Content-Type: application/json" \
-  -d '{
-    "name": "Minecraft",
-    "description": "Juego de construcción y supervivencia en mundo abierto",
-    "photo": "https://example.com/minecraft.jpg",
-    "video": "https://example.com/minecraft-trailer.mp4"
-  }'
-
-# 4. Actualizar videojuego
-curl -X PUT http://localhost:3000/videogames/1 \
-  -H "Content-Type: application/json" \
-  -d '{
-    "name": "Minecraft - Edición Actualizada",
-    "description": "Juego de construcción, supervivencia y creatividad en mundo abierto",
-    "photo": "https://example.com/minecraft-updated.jpg",
-    "video": "https://example.com/minecraft-new-trailer.mp4"
-  }'
-
-# 5. Eliminar videojuego
-curl -X DELETE http://localhost:3000/videogames/1
+### 📖 Obtener todas las series
+```http
+GET /series
 ```
 
-## Variables de Environment:
+### 📖 Obtener una serie específica
+```http
+GET /series/:id
+```
 
-- **`base_url`**: `http://localhost:3000` (URL base del servidor)
-- **`api_version`**: `v1` (versión de la API para futuras implementaciones)
+### ➕ Crear una nueva serie
+```http
+POST /series
+Content-Type: application/json
 
-## Pasos para probar:
+{
+  "name": "Stranger Things",
+  "description": "Un grupo de niños se enfrenta a fenómenos sobrenaturales en los años 80",
+  "photo": "https://example.com/stranger-things.jpg",
+  "trailer": "https://example.com/stranger-things-trailer.mp4",
+  "genre": "Ciencia Ficción/Horror",
+  "rating": 8.7
+}
+```
 
-1. Inicia tu servidor: `node app.js`
-2. Importa ambos archivos en Postman
-3. Selecciona el environment "Videojuegos Environment"
-4. Ejecuta las requests en orden:
-   - Primero GET para ver si hay datos
-   - Luego POST para crear videojuegos
-   - GET nuevamente para verificar
-   - PUT para actualizar
-   - DELETE para eliminar
+### ✏️ Actualizar una serie
+```http
+PUT /series/:id
+Content-Type: application/json
 
-¡Listo para usar! 🚀
+{
+  "name": "Stranger Things - Temporada Final",
+  "description": "La conclusión épica de la serie...",
+  "photo": "https://example.com/stranger-things-s5.jpg",
+  "trailer": "https://example.com/stranger-things-s5-trailer.mp4",
+  "genre": "Ciencia Ficción/Horror",
+  "rating": 9.0
+}
+```
+
+### ❌ Eliminar una serie
+```http
+DELETE /series/:id
+```
+## 💡 Ejemplos de uso con curl
+
+```bash
+# 1. Obtener todas las series
+curl -X GET http://localhost:8000/series
+
+# 2. Obtener serie por ID
+curl -X GET http://localhost:8000/series/1
+
+# 3. Crear nueva serie
+curl -X POST http://localhost:8000/series \
+  -H "Content-Type: application/json" \
+  -d '{
+    "name": "Game of Thrones",
+    "description": "Épica serie de fantasía medieval con dragones y política",
+    "photo": "https://example.com/got.jpg",
+    "trailer": "https://example.com/got-trailer.mp4",
+    "genre": "Fantasía/Drama",
+    "rating": 9.3
+  }'
+
+# 4. Actualizar serie
+curl -X PUT http://localhost:8000/series/1 \
+  -H "Content-Type: application/json" \
+  -d '{
+    "name": "Game of Thrones - Edición Completa",
+    "description": "La serie completa de fantasía medieval más exitosa de HBO",
+    "photo": "https://example.com/got-complete.jpg",
+    "trailer": "https://example.com/got-complete-trailer.mp4",
+    "genre": "Fantasía/Drama",
+    "rating": 9.0
+  }'
+
+# 5. Eliminar serie
+curl -X DELETE http://localhost:8000/series/1
+```
+
+## 🗃️ Base de Datos
+
+La aplicación crea automáticamente una base de datos SQLite (`series.db`) con la siguiente estructura:
+
+```sql
+CREATE TABLE series (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    name TEXT NOT NULL,
+    description TEXT NOT NULL,
+    photo TEXT NOT NULL,
+    trailer TEXT NOT NULL,
+    genre TEXT,
+    rating REAL
+);
+```
+
+## 🌐 Uso en VM/Servidor
+
+Si ejecutas la aplicación en una máquina virtual o servidor:
+
+1. **Configura el puerto en el firewall/seguridad** (puerto 8000)
+2. **La aplicación escucha en todas las interfaces** (0.0.0.0:8000)
+3. **Accede usando la IP pública**: `http://[IP-DE-TU-VM]:8000`
+
+## 📦 Archivos de Postman (Legacy)
+
+El proyecto incluye archivos de Postman para la versión anterior (videojuegos):
+- `Videojuegos_API.postman_collection.json`
+- `Videojuegos_Environment.postman_environment.json`
+
+## 🚀 Deploy y Configuración
+
+### Variables de Entorno
+- `PORT`: Puerto del servidor (default: 8000)
+
+### Para producción:
+```bash
+npm start
+```
+
+## 👥 Contribuir
+
+1. Fork el proyecto
+2. Crea una rama para tu feature (`git checkout -b feature/AmazingFeature`)
+3. Commit tus cambios (`git commit -m 'Add some AmazingFeature'`)
+4. Push a la rama (`git push origin feature/AmazingFeature`)
+5. Abre un Pull Request
+
+## 📄 Licencia
+
+Este proyecto está bajo la Licencia ISC.
+
+---
+
+**Desarrollado por**: @naye-gg  
+**Referenciado por**: @ramiroec
+

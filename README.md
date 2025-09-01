@@ -169,11 +169,29 @@ Si ejecutas la aplicación en una máquina virtual o servidor:
 2. **La aplicación escucha en todas las interfaces** (0.0.0.0:8000)
 3. **Accede usando la IP pública**: `http://[IP-DE-TU-VM]:8000`
 
-## 📦 Archivos de Postman (Legacy)
+## 📦 Archivos de Postman
 
-El proyecto incluye archivos de Postman para la versión anterior (videojuegos):
-- `Videojuegos_API.postman_collection.json`
-- `Videojuegos_Environment.postman_environment.json`
+### Para Series Favoritas (Actualizados):
+- `Series_API.postman_collection.json` - Colección con endpoints de series
+- `Series_Environment.postman_environment.json` - Variables de entorno actualizadas
+
+### Para Videojuegos (Legacy):
+- `Videojuegos_API.postman_collection.json` - Colección original
+- `Videojuegos_Environment.postman_environment.json` - Variables originales
+
+### 📥 Cómo importar en Postman:
+
+1. **Importar la Colección de Series:**
+   - Abre Postman
+   - Click en "Import"
+   - Selecciona `Series_API.postman_collection.json`
+   - Click "Import"
+
+2. **Importar el Environment:**
+   - Ve a "Environments" en Postman
+   - Click en "Import"
+   - Selecciona `Series_Environment.postman_environment.json`
+   - Selecciona "Series Favoritas Environment" en el dropdown
 
 ## 🚀 Deploy y Configuración
 

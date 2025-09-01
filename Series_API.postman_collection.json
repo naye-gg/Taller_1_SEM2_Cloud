@@ -1,0 +1,197 @@
+{
+	"info": {
+		"_postman_id": "series-favoritas-api-collection",
+		"name": "Series Favoritas API",
+		"description": "Colección completa de endpoints para la API REST de series favoritas con Node.js y SQLite3",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "1. Obtener todas las series",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"url": {
+					"raw": "{{base_url}}/series",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"series"
+					]
+				},
+				"description": "Obtiene la lista completa de todas las series favoritas almacenadas en la base de datos"
+			},
+			"response": []
+		},
+		{
+			"name": "2. Obtener serie por ID",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"url": {
+					"raw": "{{base_url}}/series/1",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"series",
+						"1"
+					]
+				},
+				"description": "Obtiene una serie específica por su ID. Cambiar el '1' por el ID deseado."
+			},
+			"response": []
+		},
+		{
+			"name": "3. Crear nueva serie",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\": \"Breaking Bad\",\n    \"description\": \"Un profesor de química se convierte en fabricante de metanfetaminas para asegurar el futuro de su familia.\",\n    \"photo\": \"https://example.com/breaking-bad.jpg\",\n    \"trailer\": \"https://example.com/breaking-bad-trailer.mp4\",\n    \"genre\": \"Drama/Thriller\",\n    \"rating\": 9.5\n}"
+				},
+				"url": {
+					"raw": "{{base_url}}/series",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"series"
+					]
+				},
+				"description": "Crea una nueva serie en la base de datos. Los campos name, description, photo y trailer son obligatorios."
+			},
+			"response": []
+		},
+		{
+			"name": "4. Actualizar serie",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\": \"Breaking Bad - Serie Completa\",\n    \"description\": \"La historia completa de Walter White, un profesor de química que se convierte en el kingpin de las drogas más temido de Albuquerque.\",\n    \"photo\": \"https://example.com/breaking-bad-complete.jpg\",\n    \"trailer\": \"https://example.com/breaking-bad-series-trailer.mp4\",\n    \"genre\": \"Drama/Thriller/Crimen\",\n    \"rating\": 9.5\n}"
+				},
+				"url": {
+					"raw": "{{base_url}}/series/1",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"series",
+						"1"
+					]
+				},
+				"description": "Actualiza una serie existente por ID. Cambiar el '1' por el ID a actualizar."
+			},
+			"response": []
+		},
+		{
+			"name": "5. Eliminar serie",
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"url": {
+					"raw": "{{base_url}}/series/1",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"series",
+						"1"
+					]
+				},
+				"description": "Elimina una serie por ID. Cambiar el '1' por el ID a eliminar."
+			},
+			"response": []
+		},
+		{
+			"name": "6. Ejemplo - Agregar Stranger Things",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\": \"Stranger Things\",\n    \"description\": \"Un grupo de niños se enfrenta a fenómenos sobrenaturales en los años 80 en Hawkins, Indiana.\",\n    \"photo\": \"https://example.com/stranger-things.jpg\",\n    \"trailer\": \"https://example.com/stranger-things-trailer.mp4\",\n    \"genre\": \"Ciencia Ficción/Horror\",\n    \"rating\": 8.7\n}"
+				},
+				"url": {
+					"raw": "{{base_url}}/series",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"series"
+					]
+				},
+				"description": "Ejemplo práctico: Agregar Stranger Things a la colección."
+			},
+			"response": []
+		},
+		{
+			"name": "7. Ejemplo - Agregar Game of Thrones",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\": \"Game of Thrones\",\n    \"description\": \"Épica serie de fantasía medieval con dragones, política y batallas por el Trono de Hierro.\",\n    \"photo\": \"https://example.com/game-of-thrones.jpg\",\n    \"trailer\": \"https://example.com/got-trailer.mp4\",\n    \"genre\": \"Fantasía/Drama\",\n    \"rating\": 9.3\n}"
+				},
+				"url": {
+					"raw": "{{base_url}}/series",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"series"
+					]
+				},
+				"description": "Ejemplo práctico: Agregar Game of Thrones a la colección."
+			},
+			"response": []
+		}
+	],
+	"variable": [
+		{
+			"key": "base_url",
+			"value": "http://localhost:8000",
+			"type": "string"
+		}
+	]
+}
